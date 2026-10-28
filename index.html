@@ -26,12 +26,15 @@
     })();
   </script>
   <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f7f6ee; color: #25251f; font: 16px/1.5 system-ui, sans-serif; text-align: center; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #ffffff; color: #25251f; font: 16px/1.5 system-ui, sans-serif; text-align: center; }
+    /* stays blank during the instant redirect; the link only appears if it fails */
+    #fallback-wrap { visibility: hidden; animation: show 0s 2.5s forwards; }
+    @keyframes show { to { visibility: visible; } }
     a { color: #7850ce; font-weight: 600; }
   </style>
 </head>
 <body>
-  <p>Opening Ideathon 2026…<br><a id="fallback" href="https://www.codevidhya.com/">Tap here if nothing happens</a></p>
+  <p id="fallback-wrap"><a id="fallback" href="https://www.codevidhya.com/">Tap here if nothing happens</a></p>
   <script>
     const m = document.getElementById('destination').content;
     const l = m.slice(m.indexOf('url=') + 4).trim();

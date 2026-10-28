@@ -12,13 +12,15 @@
      REPLACE THE URL AFTER "url=" ON THE NEXT LINE. NOTHING ELSE NEEDS EDITING.
     ========================================================================
   -->
-  <meta http-equiv="refresh" content="0; url=www.codevidhya.com" id="destination">
+  <meta http-equiv="refresh" content="0; url=https://www.codevidhya.com/" id="destination">
 
   <script>
     // Follow the destination above at once, keeping any ?src=… tag from the QR.
     (() => {
       const meta = document.getElementById('destination').content;
-      const target = new URL(meta.slice(meta.indexOf('url=') + 4).trim(), location.href);
+      let link = meta.slice(meta.indexOf('url=') + 4).trim();
+      if (!/^[a-z]+:\/\//i.test(link)) link = 'https://' + link; // tolerate a link pasted without https://
+      const target = new URL(link);
       new URLSearchParams(location.search).forEach((v, k) => target.searchParams.set(k, v));
       location.replace(target.href);
     })();
@@ -32,7 +34,8 @@
   <p>Opening Ideathon 2026…<br><a id="fallback" href="https://kartikeysharma1972.github.io/ideathon/site/">Tap here if nothing happens</a></p>
   <script>
     const m = document.getElementById('destination').content;
-    document.getElementById('fallback').href = m.slice(m.indexOf('url=') + 4).trim();
+    const l = m.slice(m.indexOf('url=') + 4).trim();
+    document.getElementById('fallback').href = /^[a-z]+:\/\//i.test(l) ? l : 'https://' + l;
   </script>
 </body>
 </html>
